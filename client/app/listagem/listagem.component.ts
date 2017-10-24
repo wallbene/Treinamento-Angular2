@@ -8,17 +8,15 @@ import { Http} from '@angular/http';
 })
 export class ListagemComponent {
 
-    fotos: Object[];
+    fotos: Object[] = [];
     
         constructor(http: Http){
     
             http.get("v1/fotos")
                 .map(res => res.json())
-                .subscribe(res => {
-                    
-                        this.fotos = res;
-                        console.log(this.fotos);
-    
+                .subscribe(fotos => {
+                        this.fotos = fotos;
+                        
                 }, err => console.log(err));
         }
 

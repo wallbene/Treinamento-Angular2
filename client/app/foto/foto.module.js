@@ -10,13 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var foto_component_1 = require('./foto.component');
+var foto_pipe_1 = require('./foto.pipe');
 var FotoModule = (function () {
     function FotoModule() {
     }
     FotoModule = __decorate([
         core_1.NgModule({
-            declarations: [foto_component_1.FotoComponent],
-            exports: [foto_component_1.FotoComponent]
+            declarations: [foto_component_1.FotoComponent, foto_pipe_1.FiltraPorTitulo],
+            exports: [foto_component_1.FotoComponent, foto_pipe_1.FiltraPorTitulo]
         }), 
         __metadata('design:paramtypes', [])
     ], FotoModule);

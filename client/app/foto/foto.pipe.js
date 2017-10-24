@@ -9,26 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var ListagemComponent = (function () {
-    function ListagemComponent(http) {
-        var _this = this;
-        this.fotos = [];
-        http.get("v1/fotos")
-            .map(function (res) { return res.json(); })
-            .subscribe(function (fotos) {
-            _this.fotos = fotos;
-        }, function (err) { return console.log(err); });
+var FiltraPorTitulo = (function () {
+    function FiltraPorTitulo() {
     }
-    ListagemComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'listagem',
-            templateUrl: './listagem.component.html'
+    FiltraPorTitulo.prototype.transform = function (fotos, digitado) {
+        return fotos.filter(function (foto) {
+            return foto.titulo.toLowerCase()
+                .includes(digitado.toLowerCase());
+        });
+    };
+    FiltraPorTitulo = __decorate([
+        core_1.Pipe({
+            name: 'filtraPorTitulo'
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], ListagemComponent);
-    return ListagemComponent;
+        __metadata('design:paramtypes', [])
+    ], FiltraPorTitulo);
+    return FiltraPorTitulo;
 }());
-exports.ListagemComponent = ListagemComponent;
-//# sourceMappingURL=listagem.component.js.map
+exports.FiltraPorTitulo = FiltraPorTitulo;
+//# sourceMappingURL=foto.pipe.js.map
