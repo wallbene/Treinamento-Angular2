@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
 import { Http, Headers } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
@@ -8,23 +8,37 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
     selector: 'cadastro',
     templateUrl: './cadastro.component.html'
 })
-export class CadastroComponent {
-
+export class CadastroComponent implements OnInit {
+    
     foto: FotoComponent = new FotoComponent();
     private http: Http;
     fotoForm: FormGroup;
-
+    fb: FormBuilder;
+    
     constructor(http: Http, fb: FormBuilder){
         this.http = http;
-
-        this.fotoForm = fb.group({
+        this.fb = fb;
+        
+    }
+    
+    ngOnInit(): void {
+        this.fotoForm = this.fb.group({
             titulo: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
             url: ['', Validators.required],
             descricao: ['']
         });
     }
 
-    cadastrar(event: Event){
+    public get titulo(){
+        return this.fotoForm.get("titulo");
+    }
+
+    public get url(){
+        return this.fotoForm.get("url");
+    }
+
+
+    public cadastrar(event: Event){
         event.preventDefault();
         
         const headers = new Headers();

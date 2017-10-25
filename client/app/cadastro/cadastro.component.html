@@ -4,8 +4,8 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Título</label>
-                    <input formControlName="titulo" name="titulo" [(ngModel)]="foto.titulo" class="form-control"  autocomplete="off">
-                    <div *ngIf="fotoForm.controls.titulo.invalid">                        
+                    <input id="titulo" formControlName="titulo" name="titulo" [(ngModel)]="foto.titulo" class="form-control"  autocomplete="off">
+                    <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)">                        
                         <span *ngIf="fotoForm.controls.titulo.errors.required" class="form-control alert-danger">
                                 Título obrigatório
                         </span>
@@ -17,9 +17,9 @@
                 <div class="form-group">
                     <label>URL</label>
                     <input formControlName="url" name="url" [(ngModel)]="foto.url" class="form-control"  autocomplete="off">        
-                    <span *ngIf="fotoForm.controls.url.invalid" class="form-control alert-danger">
-                            Url obrigatório
-                    </span> 
+                        <span *ngIf="url.invalid && (url.dirty || url.touched)" class="form-control alert-danger">
+                                Url obrigatório
+                        </span>                 
                 </div>
                 <div class="form-group">
                     <label>Descrição</label>

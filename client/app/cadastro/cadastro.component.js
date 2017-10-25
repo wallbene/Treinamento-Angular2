@@ -16,12 +16,29 @@ var CadastroComponent = (function () {
     function CadastroComponent(http, fb) {
         this.foto = new foto_component_1.FotoComponent();
         this.http = http;
-        this.fotoForm = fb.group({
+        this.fb = fb;
+    }
+    CadastroComponent.prototype.ngOnInit = function () {
+        this.fotoForm = this.fb.group({
             titulo: ['', forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(4)])],
             url: ['', forms_1.Validators.required],
             descricao: ['']
         });
-    }
+    };
+    Object.defineProperty(CadastroComponent.prototype, "titulo", {
+        get: function () {
+            return this.fotoForm.get("titulo");
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CadastroComponent.prototype, "url", {
+        get: function () {
+            return this.fotoForm.get("url");
+        },
+        enumerable: true,
+        configurable: true
+    });
     CadastroComponent.prototype.cadastrar = function (event) {
         var _this = this;
         event.preventDefault();
