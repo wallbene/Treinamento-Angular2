@@ -10,13 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './cadastro.component.html'
 })
 export class CadastroComponent implements OnInit {
-    
+
+    mensagem: string = '';
     foto: FotoComponent = new FotoComponent();
     fotoForm: FormGroup;
     fb: FormBuilder;
     service: FotoService;
     route: ActivatedRoute;
-    router: Router
+    router: Router;
     
     constructor(fb: FormBuilder, service: FotoService, route: ActivatedRoute, router: Router){
         this.fb = fb;
@@ -59,10 +60,14 @@ export class CadastroComponent implements OnInit {
     public cadastrar(event: Event){
         event.preventDefault();
                 this.service.cadastra(this.foto)
-                 .subscribe((foto) => {
-                    this.router.navigate(['']);
+                 .subscribe((res) => {
+
+                    if(!res.inclusao){
+                        this.router.navigate(['', res.mensagem ]);
+                    }
+
                      this.foto = new FotoComponent();
-                     console.log("Foto enviada com sucesso!");
+                     this.mensagem = res.mensagem;
                  },
                   erro => console.error(erro));
     }

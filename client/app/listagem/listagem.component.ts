@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FotoService } from '../foto/foto.service';
 import { FotoComponent } from '../foto/foto.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -8,13 +9,23 @@ import { FotoComponent } from '../foto/foto.component';
     templateUrl: './listagem.component.html'
 })
 export class ListagemComponent {
+
+    route: ActivatedRoute;
     service: FotoService;
     mensagem: string = '';
     fotos: FotoComponent[] = [];
     
-        constructor(service: FotoService){
-
+        constructor(service: FotoService, route: ActivatedRoute){
+            
+            this.route = route;
             this.service = service;
+
+            route.params.subscribe(param => {
+                const msg = param['mensagem'];
+                if(msg)
+                    this.mensagem = msg;
+            });
+
             service.listar()
                 .subscribe(fotos => {
                         this.fotos = fotos;

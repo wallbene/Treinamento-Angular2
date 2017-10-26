@@ -16,6 +16,7 @@ var router_1 = require('@angular/router');
 var CadastroComponent = (function () {
     function CadastroComponent(fb, service, route, router) {
         var _this = this;
+        this.mensagem = '';
         this.foto = new foto_component_1.FotoComponent();
         this.fb = fb;
         this.service = service;
@@ -55,10 +56,12 @@ var CadastroComponent = (function () {
         var _this = this;
         event.preventDefault();
         this.service.cadastra(this.foto)
-            .subscribe(function (foto) {
-            _this.router.navigate(['']);
+            .subscribe(function (res) {
+            if (!res.inclusao) {
+                _this.router.navigate(['', res.mensagem]);
+            }
             _this.foto = new foto_component_1.FotoComponent();
-            console.log("Foto enviada com sucesso!");
+            _this.mensagem = res.mensagem;
         }, function (erro) { return console.error(erro); });
     };
     CadastroComponent = __decorate([

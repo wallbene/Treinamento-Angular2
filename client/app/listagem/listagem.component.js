@@ -10,12 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var foto_service_1 = require('../foto/foto.service');
+var router_1 = require('@angular/router');
 var ListagemComponent = (function () {
-    function ListagemComponent(service) {
+    function ListagemComponent(service, route) {
         var _this = this;
         this.mensagem = '';
         this.fotos = [];
+        this.route = route;
         this.service = service;
+        route.params.subscribe(function (param) {
+            var msg = param['mensagem'];
+            if (msg)
+                _this.mensagem = msg;
+        });
         service.listar()
             .subscribe(function (fotos) {
             _this.fotos = fotos;
@@ -38,7 +45,7 @@ var ListagemComponent = (function () {
             selector: 'listagem',
             templateUrl: './listagem.component.html'
         }), 
-        __metadata('design:paramtypes', [foto_service_1.FotoService])
+        __metadata('design:paramtypes', [foto_service_1.FotoService, router_1.ActivatedRoute])
     ], ListagemComponent);
     return ListagemComponent;
 }());
