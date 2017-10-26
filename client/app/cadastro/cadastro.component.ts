@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FotoComponent } from '../foto/foto.component';
-import { Http, Headers } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
+import { FotoService } from '../foto/foto.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -11,14 +12,31 @@ import { FormGroup, FormBuilder, Validators, } from '@angular/forms'
 export class CadastroComponent implements OnInit {
     
     foto: FotoComponent = new FotoComponent();
-    private http: Http;
     fotoForm: FormGroup;
     fb: FormBuilder;
+    service: FotoService;
+    route: ActivatedRoute;
+    router: Router
     
-    constructor(http: Http, fb: FormBuilder){
-        this.http = http;
+    constructor(fb: FormBuilder, service: FotoService, route: ActivatedRoute, router: Router){
         this.fb = fb;
+        this.service = service;
+        this.route = route;
+        this.router = router;
         
+        route.params.subscribe(
+                (param) => {
+                    const id = param["id"];
+
+                    if(id){
+                        this.service
+                            .buscaPorId(id)
+                            .subscribe(
+                                foto => this.foto = foto,
+                                erro => console.log(erro)
+                            );
+                        }
+                    });
     }
     
     ngOnInit(): void {
@@ -40,16 +58,11 @@ export class CadastroComponent implements OnInit {
 
     public cadastrar(event: Event){
         event.preventDefault();
-        
-        const headers = new Headers();
-        headers.append("Content-Type", "application/json");
-
-        this.http.post("v1/fotos", JSON.stringify(this.foto),{headers: headers})
+                this.service.cadastra(this.foto)
                  .subscribe((foto) => {
-
+                    this.router.navigate(['']);
                      this.foto = new FotoComponent();
                      console.log("Foto enviada com sucesso!");
-                     console.log(foto.json());
                  },
                   erro => console.error(erro));
     }
