@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { routing } from './app.routes';
 import 'rxjs/add/operator/map';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BotaoModule } from './botao/botao.modulo';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         PainelModule,
         routing,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BotaoModule
     ],
     declarations: [AppComponent, ListagemComponent, CadastroComponent],
     bootstrap: [AppComponent]
