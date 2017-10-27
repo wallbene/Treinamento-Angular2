@@ -19,15 +19,7 @@ var BotaoComponent = (function () {
         this.confirmacao = false;
     }
     BotaoComponent.prototype.executaAcao = function () {
-        if (this.confirmacao) {
-            if (confirm("Deseja remover esta foto?")) {
-                this.acao.emit(null);
-            }
-            return;
-        }
-        else {
-            this.acao.emit(null);
-        }
+        this.acao.emit(null);
     };
     __decorate([
         core_1.Input(), 

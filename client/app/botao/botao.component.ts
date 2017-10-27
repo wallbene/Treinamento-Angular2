@@ -15,14 +15,7 @@ export class BotaoComponent {
     @Input() confirmacao: boolean = false;
 
     executaAcao(){
-        if(this.confirmacao){
-            if(confirm("Deseja remover esta foto?")){
-                this.acao.emit(null);
-            }
-            return;
-        }else{
-            this.acao.emit(null);
-        }
+        this.acao.emit(null);
     }
 
 }
