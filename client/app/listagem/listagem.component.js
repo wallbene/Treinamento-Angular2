@@ -28,15 +28,17 @@ var ListagemComponent = (function () {
             _this.fotos = fotos;
         }, function (err) { return console.log(err); });
     }
-    ListagemComponent.prototype.remover = function (foto) {
+    ListagemComponent.prototype.remover = function (foto, painel) {
         var _this = this;
         this.service.remove(foto)
             .subscribe(function () {
-            _this.mensagem = "Foto " + foto.titulo + " Removida com sucesso";
-            var cloneArray = _this.fotos.slice(0);
-            var index = _this.fotos.indexOf(foto);
-            cloneArray.splice(index, 1);
-            _this.fotos = cloneArray;
+            painel.fadeOut(function () {
+                _this.mensagem = "Foto " + foto.titulo + " Removida com sucesso";
+                var cloneArray = _this.fotos.slice(0);
+                var index = _this.fotos.indexOf(foto);
+                cloneArray.splice(index, 1);
+                _this.fotos = cloneArray;
+            });
         }, function (erro) { return console.log(erro); });
     };
     ListagemComponent = __decorate([
